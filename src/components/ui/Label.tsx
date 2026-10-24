@@ -1,8 +1,18 @@
 import type { ReactNode } from 'react'
 
-export function Label({ children }: { children: ReactNode }) {
+type LabelProps = {
+  children: ReactNode
+  tone?: 'light' | 'dark'
+}
+
+export function Label({ children, tone = 'light' }: LabelProps) {
   return (
-    <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-primary">
+    <p
+      className={`flex items-center gap-3 text-[13px] font-semibold ${
+        tone === 'dark' ? 'text-paper/70' : 'text-ink-soft'
+      }`}
+    >
+      <span className="h-px w-7 shrink-0 bg-seal" aria-hidden="true" />
       {children}
     </p>
   )

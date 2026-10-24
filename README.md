@@ -1,78 +1,69 @@
-# React + TypeScript + Vite
+# BellidoMap Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend del Colegio María Parado de Bellido construido con React 19, TypeScript, Vite y Tailwind CSS 4.
 
-Currently, two official plugins are available:
+## Tecnologías
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- [Vite](https://vitejs.dev/) 8
+- [React](https://react.dev/) 19
+- [TypeScript](https://www.typescriptlang.org/) 5
+- [Tailwind CSS](https://tailwindcss.com/) 4
+- [React Compiler](https://react.dev/learn/react-compiler) habilitado
 
-## React Compiler
+## Requisitos
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Node.js 22+ o Bun
+- pnpm (se incluye `pnpm-lock.yaml`)
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+## Configuración
 
-## Expanding the ESLint configuration
+1. Clonar el repositorio
+2. Instalar dependencias:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+3. Ejecutar en desarrollo:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+pnpm dev
 ```
+
+4. Construir para producción:
+
+```bash
+pnpm build
+```
+
+5. Vista previa de build:
+
+```bash
+pnpm preview
+```
+
+## Estructura
+
+```text
+src/
+├── App.tsx
+├── assets/
+├── components/
+│   ├── layout/   # Header, Footer, Logo, Sidebar
+│   ├── sections/ # Secciones de la landing
+│   └── ui/        # Componentes reutilizables
+├── data/         # Datos estáticos
+├── index.css     # Estilos globales y tokens
+├── main.tsx
+└── pages/        # Login, Dashboard
+```
+
+## Rutas
+
+- `/` - Landing page
+- `/login` - Portal del estudiante
+- `/dashboard` - Panel administrativo (sidebar estático)
+
+## Diseño
+
+Se utiliza una paleta editorial inspirada en papel, tinta y lacre con tipografías `Gloock`, `Hanken Grotesk` y `Mrs Saint Delafield`.

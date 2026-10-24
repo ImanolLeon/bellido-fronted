@@ -1,18 +1,115 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Gloock", "Iowan Old Style", Georgia, serif;
+  --font-script: "Mrs Saint Delafield", "Segoe Script", cursive;
 
-  --color-primary: #2563eb;
-  --color-primary-dark: #1d4ed8;
-  --color-primary-soft: #e8f1fd;
-  --color-navy: #0f2a4a;
-  --color-navy-deep: #0b1f37;
-  --color-sky-soft: #eaf3fc;
-  --color-mist: #f4f7fb;
-  --color-coral: #f5876b;
-  --color-teal: #3fc1a6;
-  --color-sun: #f4c430;
-  --color-ink: #1f2a3a;
-  --color-slate-brand: #5a6b82;
+  --color-paper: #f1f2ec;
+  --color-paper-deep: #e4e6dc;
+  --color-ink: #142a44;
+  --color-ink-soft: #4a5f76;
+  --color-seal: #a8332c;
+  --color-seal-soft: #f1e1dc;
+  --color-chalk: #2c5a4b;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-seal);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 74rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Ruled notebook lines, used only where the page talks about letters and school. */
+  .paper-lines {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 31px,
+      color-mix(in srgb, var(--color-ink) 6%, transparent) 31px,
+      color-mix(in srgb, var(--color-ink) 6%, transparent) 32px
+    );
+  }
+
+  .letter-card {
+    box-shadow: 0 26px 60px -34px rgb(20 42 68 / 0.55);
+  }
+
+  .hero-rise {
+    animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-rise-late {
+    animation: hero-rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-rise-late {
+    animation: none;
+  }
 }

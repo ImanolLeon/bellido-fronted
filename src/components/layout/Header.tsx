@@ -4,27 +4,30 @@ import { NAV_LINKS } from '../../data/navLinks'
 
 export function Header() {
   const [open, setOpen] = useState(false)
+
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50  bg-paper/90 backdrop-blur-md">
+      <div className="container-page flex items-center justify-between gap-6 py-3.5">
         <Logo />
-        <nav className="hidden items-center gap-7 lg:flex">
-          {NAV_LINKS.map((l) => (
+
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Navegación principal">
+          {NAV_LINKS.map((link) => (
             <a
-              key={l.label}
-              href={l.href}
-              className="text-sm font-semibold text-slate-brand transition hover:text-primary"
+              key={link.label}
+              href={link.href}
+              className="text-[15px] font-medium text-ink-soft transition-colors hover:text-ink"
             >
-              {l.label}
+              {link.label}
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-3">
+
+        <div className="flex items-center gap-2">
           <a
             href="/login"
-            className="hidden items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/20 transition hover:bg-primary-dark sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-seal sm:inline-flex"
           >
-            Portal estudiante
+            Portal del estudiante
             <svg viewBox="0 0 20 20" fill="currentColor" className="size-4" aria-hidden="true">
               <path
                 fillRule="evenodd"
@@ -33,43 +36,51 @@ export function Header() {
               />
             </svg>
           </a>
+
           <button
             type="button"
-            aria-label="Abrir menú"
-            onClick={() => setOpen((v) => !v)}
-            className="inline-flex size-10 items-center justify-center rounded-xl border border-slate-200 text-navy lg:hidden"
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={open}
+            aria-controls="menu-movil"
+            onClick={() => setOpen((value) => !value)}
+            className="inline-flex size-10 items-center justify-center rounded-full border border-ink/15 text-ink transition-colors hover:border-ink/40 lg:hidden"
           >
             {open ? (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-5" aria-hidden="true">
                 <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
               </svg>
             ) : (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-5" aria-hidden="true">
                 <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />
               </svg>
             )}
           </button>
         </div>
       </div>
+
       {open && (
-        <nav className="border-t border-slate-100 bg-white px-4 pb-5 pt-3 lg:hidden">
-          <div className="flex flex-col gap-1">
-            {NAV_LINKS.map((l) => (
+        <nav
+          id="menu-movil"
+          aria-label="Navegación móvil"
+          className="border-t border-ink/10 bg-paper px-5 pb-5 pt-3 lg:hidden"
+        >
+          <div className="flex flex-col">
+            {NAV_LINKS.map((link) => (
               <a
-                key={l.label}
-                href={l.href}
+                key={link.label}
+                href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-sm font-semibold text-navy transition hover:bg-primary-soft"
+                className="border-b border-ink/10 py-3 text-[15px] font-medium text-ink"
               >
-                {l.label}
+                {link.label}
               </a>
             ))}
             <a
               href="/login"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white"
+              className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-paper"
             >
-              Portal estudiante
+              Portal del estudiante
             </a>
           </div>
         </nav>

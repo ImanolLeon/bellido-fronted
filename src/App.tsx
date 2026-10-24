@@ -9,6 +9,7 @@ import { ComoAprendemos } from './components/sections/ComoAprendemos'
 import { VidaEscolar } from './components/sections/VidaEscolar'
 import { Campus } from './components/sections/Campus'
 import { Login } from './pages/Login'
+import { Dashboard } from './pages/Dashboard'
 
 function App() {
   const [path, setPath] = useState(() => window.location.pathname)
@@ -16,12 +17,30 @@ function App() {
   useEffect(() => {
     const hash = window.location.hash
     if (hash.startsWith('#/')) {
-      window.history.replaceState(null, '', hash.slice(1))
-      setPath(hash.slice(1))
+      const clean = hash.slice(1)
+      if (clean !== path) {
+        window.history.replaceState(null, '', clean)
+        setPath(clean)
+      }
     } else if (hash) {
       window.history.replaceState(null, '', window.location.pathname)
     }
-  }, [])
+  }, [path])
+
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash
+      if (hash.startsWith('#/')) {
+        const clean = hash.slice(1)
+        if (clean !== path) {
+          setPath(clean)
+          window.scrollTo({ top: 0 })
+        }
+      }
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [path])
 
   useEffect(() => {
     const onPopState = () => setPath(window.location.pathname)
@@ -48,6 +67,15 @@ function App() {
       if (!anchor) return
       const href = anchor.getAttribute('href')
       if (!href) return
+
+      if (href.startsWith('#/')) {
+        event.preventDefault()
+        const clean = href.slice(1)
+        window.history.pushState(null, '', clean)
+        setPath(clean)
+        window.scrollTo({ top: 0 })
+        return
+      }
 
       const isInternal = href.startsWith('/') || href.startsWith('#')
       if (!isInternal) return
@@ -81,8 +109,12 @@ function App() {
     return <Login />
   }
 
+  if (path === '/dashboard' || path.startsWith('/dashboard')) {
+    return <Dashboard />
+  }
+
   return (
-    <div className="bg-white font-sans text-slate-brand antialiased">
+    <div className="bg-paper font-sans text-ink antialiased">
       <Header />
       <main>
         <Hero />
